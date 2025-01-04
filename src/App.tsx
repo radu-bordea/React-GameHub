@@ -1,16 +1,17 @@
 import { Grid, GridItem } from "@chakra-ui/react";
+import Navbar from "./components/Navbar";
 
 function App() {
   console.log("App Rendered");
   return (
     <Grid
-      h="50px"
+      // h="50px"
       templateRows={{ base: "repeat(2, 1fr)", lg: "repeat(2, 1fr)" }} // Two rows for mobile and desktop
       templateColumns={{ base: "1fr", lg: "repeat(2, 1fr)" }} // One column on mobile, three on desktop
       
     >
-      <GridItem bg="lightcoral" rowSpan={1} colSpan={3}>
-        Nav
+      <GridItem rowSpan={1} colSpan={3}>
+        <Navbar/>
       </GridItem>
       <GridItem bg="lightblue" rowSpan={1} colSpan={1}>
         Main
