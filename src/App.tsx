@@ -1,29 +1,26 @@
-import { Grid, GridItem } from "@chakra-ui/react";
-import Navbar from "./components/Navbar";
+import { Box, Flex, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { useState } from "react";
+import NavBar from "./components/NavBar";
 
 function App() {
-  console.log("App Rendered");
+
   return (
     <Grid
-      // h="50px"
-      templateRows={{ base: "repeat(2, 1fr)", lg: "repeat(2, 1fr)" }} // Two rows for mobile and desktop
-      templateColumns={{ base: "1fr", lg: "repeat(2, 1fr)" }} // One column on mobile, three on desktop
-      
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
     >
-      <GridItem rowSpan={1} colSpan={3}>
-        <Navbar/>
+      <GridItem area="nav">
+        <NavBar/>
       </GridItem>
-      <GridItem bg="lightblue" rowSpan={1} colSpan={1}>
+      <Show above="lg">
+        <GridItem  area="aside" paddingX={5}>
+          Aside
+        </GridItem>
+      </Show>
+      <GridItem area="main">
         Main
-      </GridItem>
-      {/* Aside will be hidden on mobile by setting display: none on base breakpoint */}
-      <GridItem
-        bg="yellow"
-        rowSpan={1}
-        colSpan={1}
-        display={{ base: "none", lg: "block" }} // Hide aside on mobile, show on larger screens
-      >
-        Aside
       </GridItem>
     </Grid>
   );
