@@ -41,7 +41,7 @@ const useGames = () => {
 
     // Fetch games data from the API
     apiClient
-      .get("/games", { signal: controller.signal }) // Pass the abort signal to the request
+      .get<FetchGamesResponse>("/games", { signal: controller.signal }) // Pass the abort signal to the request
       .then((res) => {
         setGames(res.data.results); // Update the games state with fetched data
         setLoading(false); // Set loading to false after data is fetched successfully

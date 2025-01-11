@@ -2,6 +2,7 @@ import { Box, Flex, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 import { useState } from "react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
+import GenreList from "./components/GenreList";
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem  area="aside" paddingX={5}>
-          Aside
+          <GenreList/>
         </GridItem>
       </Show>
       <GridItem area="main">
