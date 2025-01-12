@@ -9,6 +9,7 @@ const GameGrid = () => {
   // Fetch game data, handle loading state, and potential errors
   const { data, error, isLoading } = useGames();
 
+
   // Placeholder skeletons for loading state
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
