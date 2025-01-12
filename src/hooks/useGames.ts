@@ -19,7 +19,7 @@ export interface Game {
   metacritic: number;
 }
 
-// Custom hook that fetches a list of games using the generic `useData` hook.
+// Custom hook that fetches a list of games based on filter using the generic `useData` hook.
 const useGames = (selectedGenre: Genre | null) =>
   useData<Game>(
     "/games",

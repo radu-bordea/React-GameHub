@@ -11,21 +11,17 @@ import getCroppedImageUrl from "../services/image-url";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const GenreList = ({ onSelectGenre } : Props) => {
-  // Use the custom hook `useGenres` to fetch genre data.
-  const { data, isLoading, error } = useGenres();
+const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
+  const { data, isLoading, error } = useGenres(); // Fetch genre data.
 
-  // Show spinner before fetching data
-  if (isLoading) return <Spinner />;
-
-  // return null if error
-  if (error) return null;
+  if (isLoading) return <Spinner />; // Show loading spinner.
+  if (error) return null; // Handle errors.
 
   return (
     <List>
-      {/* Map through the fetched genres and render each one as a list item. */}
       {data.map((genre) => (
         <ListItem key={genre.id} paddingY="5px">
           <HStack>
@@ -35,6 +31,7 @@ const GenreList = ({ onSelectGenre } : Props) => {
               src={getCroppedImageUrl(genre.image_background)}
             />
             <Button
+              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
               onClick={() => onSelectGenre(genre)}
               fontSize="lg"
               variant="link"

@@ -1,6 +1,6 @@
 import useData from "./useData";
 
-// Interface representing a genre with an id and a name.
+// Interface representing a genre with an id, a name and a imageUrl.
 export interface Genre {
   id: number;
   name: String;
