@@ -3,11 +3,16 @@ import useGames from "../hooks/useGames";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
+import { Genre } from "../hooks/useGenres";
+
+interface Props {
+  selectedGenre: Genre | null
+}
 
 // Component to render a grid layout of game cards
-const GameGrid = () => {
+const GameGrid = ({selectedGenre}: Props) => {
   // Fetch game data, handle loading state, and potential errors
-  const { data, error, isLoading } = useGames();
+  const { data, error, isLoading } = useGames(selectedGenre);
 
 
   // Placeholder skeletons for loading state
