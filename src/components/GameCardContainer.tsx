@@ -9,7 +9,6 @@ interface Props {
 const GameCardContainer = ({ children }: Props) => {
   return (
     <Box
-      width="300px" // Set the container width to 300px
       borderRadius={10} // Apply rounded corners to the container
       overflow="hidden" // Ensure that child elements don't overflow the container
     >

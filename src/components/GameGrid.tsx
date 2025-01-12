@@ -19,9 +19,9 @@ const GameGrid = () => {
 
       {/* Grid layout to display game cards */}
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} // Define responsive grid columns
+        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }} // Define responsive grid columns
         padding={10} // Add padding around the grid
-        spacing={10} // Add spacing between grid items
+        spacing={3} // Add spacing between grid items
       >
         {/* Render skeleton placeholders while data is loading */}
         {isLoading &&
