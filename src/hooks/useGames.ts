@@ -1,5 +1,6 @@
 import useData from "./useData";
 import { Genre } from "./useGenres";
+import { GameQuery } from "../App";
 
 // Define the structure of the Platform object.
 export interface Platform {
@@ -21,16 +22,15 @@ export interface Game {
 
 // Custom hook that fetches a list of games based on filter using the generic `useData` hook.
 const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
+  gameQuery: GameQuery
 ) =>
   useData<Game>(
     "/games",
     {
-      params: { genres: selectedGenre?.id },
-      platforms: selectedPlatform?.id,
+      params: { genres: gameQuery.genre?.id },
+      platforms: gameQuery.platform?.id,
     },
-    [selectedGenre?.id, selectedPlatform?.id]
+    [gameQuery]
   );
 
 export default useGames;
