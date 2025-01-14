@@ -1,36 +1,35 @@
+import { GameQuery } from "../App";
 import useData from "./useData";
 import { Genre } from "./useGenres";
-import { GameQuery } from "../App";
 
-// Represents a gaming platform (e.g., PC, PlayStation).
 export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
+  id: number; // Unique identifier for the platform
+  name: string; // Name of the platform
+  slug: string; // URL-friendly identifier for the platform
 }
 
-// Represents a game and its details.
 export interface Game {
-  background_image: string; // Game's background image.
-  id: number; // Game ID.
-  name: string; // Game name.
-  parent_platforms: {
-    platform: Platform; // Platforms the game supports.
-  }[];
-  metacritic: number; // Game's Metacritic score.
+  id: number; // Unique identifier for the game
+  name: string; // Name of the game
+  background_image: string; // URL of the game's background image
+  parent_platforms: { platform: Platform }[]; // List of platforms the game is available on
+  metacritic: number; // Metacritic score of the game
+  rating_top: number; // Top rating received by the game
 }
 
-// Fetches games filtered by genre and platform.
+// Custom hook to fetch a list of games based on the provided query
 const useGames = (gameQuery: GameQuery) =>
   useData<Game>(
-    "/games", // API endpoint.
+    "/games", // API endpoint to fetch games
     {
       params: {
-        genres: gameQuery.genre?.id, // Filter by genre.
-        platforms: gameQuery.platform?.id, // Filter by platform.
+        genres: gameQuery.genre?.id, // Genre filter
+        platforms: gameQuery.platform?.id, // Platform filter
+        ordering: gameQuery.sortOrder, // Sort order for the games
+        search: gameQuery.searchText, // Search text for the games
       },
     },
-    [gameQuery] // Refetch when `gameQuery` changes.
+    [gameQuery] // Dependencies for re-fetching data
   );
 
 export default useGames;

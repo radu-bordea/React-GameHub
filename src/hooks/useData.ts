@@ -1,50 +1,49 @@
+import { AxiosRequestConfig, CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { AxiosRequestConfig, CanceledError } from "axios";
 
-// Interface for API response structure.
 interface FetchResponse<T> {
-  count: number; // Total items count.
-  results: T[]; // Items array.
+  count: number; // Total number of items in the response
+  results: T[]; // Array of results of type T
 }
 
-// Custom hook for fetching data.
+
+// Custom hook to fetch data from an API
 const useData = <T>(
-  endpoint: string,
-  requestConfig?: AxiosRequestConfig,
-  deps?: any[]
+  endpoint: string, // API endpoint to fetch data from
+  requestConfig?: AxiosRequestConfig, // Optional Axios request configuration
+  deps?: any[] // Optional dependency array for re-fetching data
 ) => {
-  const [data, setData] = useState<T[]>([]); // Stores fetched data.
-  const [error, setError] = useState(""); // Stores error messages.
-  const [isLoading, setLoading] = useState(false); // Tracks loading status.
+  const [data, setData] = useState<T[]>([]); // State to store the fetched data
+  const [error, setError] = useState(""); // State to store any error messages
+  const [isLoading, setLoading] = useState(false); // State to indicate loading status
 
   useEffect(
     () => {
-      const controller = new AbortController(); // Handles request cancellation.
+      const controller = new AbortController(); // Controller to handle request cancellation
 
-      setLoading(true); // Start loading.
-
+      setLoading(true); // Set loading to true before making the request
       apiClient
         .get<FetchResponse<T>>(endpoint, {
           signal: controller.signal,
           ...requestConfig,
-        })
+        }) // Make the API call
         .then((res) => {
-          setData(res.data.results); // Save fetched data.
-          setLoading(false); // Stop loading.
+          setData(res.data.results); // Update the data state with results
+          setLoading(false); // Set loading to false after data is fetched
         })
         .catch((err) => {
-          if (err instanceof CanceledError) return; // Skip canceled errors.
-          setError(err.message); // Save error message.
-          setLoading(false); // Stop loading.
+          if (err instanceof CanceledError) return; // Ignore cancellation errors
+          setError(err.message); // Set error message if there's an error
+          setLoading(false); // Set loading to false even on error
         });
 
-      return () => controller.abort(); // Cleanup on unmount or effect re-run.
+      return () => controller.abort(); // Cleanup: abort the request on component unmount
     },
     deps ? [...deps] : []
-  ); // Re-run when dependencies change.
+  ); // Add dependencies to trigger effect re-run if provided
 
-  return { data, error, isLoading }; // Return hook state.
+  return { data, error, isLoading }; // Return the data, error, and loading state
 };
 
 export default useData;

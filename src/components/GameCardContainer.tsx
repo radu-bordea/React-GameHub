@@ -2,19 +2,19 @@ import { Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 interface Props {
-  children: ReactNode; // Accepts any valid React child elements
+  children: ReactNode; // The content (React components) to be wrapped inside the container
 }
 
-// Component to provide a container with consistent styling for game cards
 const GameCardContainer = ({ children }: Props) => {
   return (
-    <Box
-      borderRadius={10} // Apply rounded corners to the container
-      overflow="hidden" // Ensure that child elements don't overflow the container
-    >
-      {children} {/* Render the child components passed to this container */}
+    <Box borderRadius={10} overflow="hidden">
+      {" "}
+      {/* Apply border radius and hide overflowing content */}
+      {children}{" "}
+      {/* Render the child elements (usually game cards) inside this container */}
     </Box>
   );
 };
 
 export default GameCardContainer;
+

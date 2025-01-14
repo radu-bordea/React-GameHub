@@ -1,26 +1,18 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react"; // Chakra UI Badge component for displaying scores
 
 interface Props {
-  score: number; // Props interface defining the expected critic score
+  score: number; // The critic score to be displayed
 }
 
-// Component to display a critic score with color-coded styling
 const CriticScore = ({ score }: Props) => {
-  // Determine the badge color based on the score value
-  let color = score > 75 ? "green" : score > 60 ? "yellow" : "";
+  // Determine the color scheme based on the score value
+  let color = score > 75 ? "green" : score > 60 ? "yellow" : ""; // Green for scores above 75, yellow for scores above 60
 
   return (
-    <div>
-      {/* Render a Badge with the score and dynamic color */}
-      <Badge
-        colorScheme={color} // Apply color scheme dynamically
-        fontSize="14px" // Set font size for the badge
-        paddingX={2} // Add horizontal padding for better appearance
-        borderRadius="4px" // Slightly round the edges of the badge
-      >
-        {score} {/* Display the critic score */}
-      </Badge>
-    </div>
+    // Display the score inside a Badge with the appropriate color scheme
+    <Badge colorScheme={color} fontSize="14px" paddingX={2} borderRadius="4px">
+      {score} {/* Display the critic score */}
+    </Badge>
   );
 };
 
