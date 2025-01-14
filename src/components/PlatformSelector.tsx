@@ -5,37 +5,36 @@ import { Platform } from "../hooks/useGames";
 
 interface Props {
   onSelectPlatform: (platform: Platform) => void;
-  selectedPlatform: Platform | null
+  selectedPlatform: Platform | null;
 }
 
-// PlatformSelector component definition
 const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
-  // Using the custom hook to fetch platform data and handle errors
-  const { data, error } = usePlatforms();
+  const { data, error } = usePlatforms(); // Fetch platform data.
 
-  // If there is an error, return nothing (null)
-  if (error) return null;
+  if (error) return null; // Return nothing if there's an error.
 
   return (
     <Menu>
-      {" "}
-      {/* Menu component to display dropdown */}
-      {/* Button that triggers the dropdown with an icon */}
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-       {selectedPlatform?.name || 'Platforms'}
+        {selectedPlatform?.name || "Platforms"}{" "}
+        {/* Show selected platform or default text. */}
       </MenuButton>
       <MenuList>
-        {" "}
-        {/* List of items in the dropdown */}
-        {data.map((platform) => (
-          <MenuItem key={platform.id} onClick={() => onSelectPlatform(platform)}>
-            {platform.name}
-          </MenuItem>
-        ))}
+        {data.map(
+          (
+            platform // Render platforms in the dropdown.
+          ) => (
+            <MenuItem
+              key={platform.id}
+              onClick={() => onSelectPlatform(platform)}
+            >
+              {platform.name}
+            </MenuItem>
+          )
+        )}
       </MenuList>
     </Menu>
   );
 };
 
-// Exporting the component to be used in other parts of the application
 export default PlatformSelector;

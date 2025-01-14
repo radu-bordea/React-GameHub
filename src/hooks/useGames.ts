@@ -2,35 +2,35 @@ import useData from "./useData";
 import { Genre } from "./useGenres";
 import { GameQuery } from "../App";
 
-// Define the structure of the Platform object.
+// Represents a gaming platform (e.g., PC, PlayStation).
 export interface Platform {
   id: number;
   name: string;
   slug: string;
 }
 
-// Define the structure of the Game object, which includes the Platform structure.
+// Represents a game and its details.
 export interface Game {
-  background_image: string;
-  id: number;
-  name: string;
+  background_image: string; // Game's background image.
+  id: number; // Game ID.
+  name: string; // Game name.
   parent_platforms: {
-    platform: Platform;
+    platform: Platform; // Platforms the game supports.
   }[];
-  metacritic: number;
+  metacritic: number; // Game's Metacritic score.
 }
 
-// Custom hook that fetches a list of games based on filter using the generic `useData` hook.
-const useGames = (
-  gameQuery: GameQuery
-) =>
+// Fetches games filtered by genre and platform.
+const useGames = (gameQuery: GameQuery) =>
   useData<Game>(
-    "/games",
+    "/games", // API endpoint.
     {
-      params: { genres: gameQuery.genre?.id },
-      platforms: gameQuery.platform?.id,
+      params: {
+        genres: gameQuery.genre?.id, // Filter by genre.
+        platforms: gameQuery.platform?.id, // Filter by platform.
+      },
     },
-    [gameQuery]
+    [gameQuery] // Refetch when `gameQuery` changes.
   );
 
 export default useGames;
