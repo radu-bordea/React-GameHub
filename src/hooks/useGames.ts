@@ -20,13 +20,17 @@ export interface Game {
 }
 
 // Custom hook that fetches a list of games based on filter using the generic `useData` hook.
-const useGames = (selectedGenre: Genre | null) =>
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) =>
   useData<Game>(
     "/games",
     {
       params: { genres: selectedGenre?.id },
+      platforms: selectedPlatform?.id,
     },
-    [selectedGenre?.id]
+    [selectedGenre?.id, selectedPlatform?.id]
   );
 
 export default useGames;
